@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2020 at 04:59 PM
+-- Generation Time: Apr 21, 2020 at 07:33 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -26,12 +26,12 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `post_comments` (`post` INT(6))  begin
-	SELECT comments.userID, comments.dateTime, comments.text from comments where comments.postID = post;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `post_comments` (IN `post` INT(6))  begin
+	SELECT users.userName, comments.dateTime, comments.text from comments natural join users where comments.postID = post;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `post_likes` (`post` INT(6))  begin
-	SELECT userID from likes where postID = post;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `post_likes` (IN `post` INT(6))  begin
+	SELECT users.userName from likes natural join users where postID = post;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `user_followers` (`user_id` INT(6))  begin
@@ -78,6 +78,14 @@ CREATE TABLE `comments` (
   `text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`userID`, `postID`, `dateTime`, `text`) VALUES
+(2, 1, '2020-04-21 13:24:06', 'Nice Duck.'),
+(2, 1, '2020-04-22 13:24:06', 'I take it back the duck is only okay');
+
 -- --------------------------------------------------------
 
 --
@@ -89,6 +97,13 @@ CREATE TABLE `follows` (
   `followedID` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `follows`
+--
+
+INSERT INTO `follows` (`followerID`, `followedID`) VALUES
+(2, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -99,6 +114,15 @@ CREATE TABLE `likes` (
   `userID` int(6) NOT NULL,
   `postID` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `likes`
+--
+
+INSERT INTO `likes` (`userID`, `postID`) VALUES
+(2, 1),
+(2, 2),
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -115,6 +139,14 @@ CREATE TABLE `posts` (
   `tag_name` varchar(24) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`postID`, `userID`, `dateTime`, `file_location`, `view_count`, `tag_name`) VALUES
+(1, 2, '2020-04-21 13:14:08', 'images/duck.png', 0, 'wildlife'),
+(2, 3, '2020-04-20 13:14:08', 'images/skull.png', 0, 'spooky');
+
 -- --------------------------------------------------------
 
 --
@@ -125,6 +157,14 @@ CREATE TABLE `tags` (
   `tag_name` varchar(24) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tags`
+--
+
+INSERT INTO `tags` (`tag_name`, `description`) VALUES
+('spooky', 'That which lurks in the night.'),
+('wildlife', 'Ducks, dogs, deer, and any other form of wildlife worth seeing pictures of.');
 
 -- --------------------------------------------------------
 
@@ -139,6 +179,14 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userID`, `userName`, `password`) VALUES
+(2, 'kyle1413', '12341234'),
+(3, 'tim1234', '34563456');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -146,12 +194,14 @@ CREATE TABLE `users` (
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`userID`,`postID`,`dateTime`);
+  ADD PRIMARY KEY (`userID`,`postID`,`dateTime`),
+  ADD KEY `comments_ibfk_1` (`postID`);
 
 --
 -- Indexes for table `follows`
 --
 ALTER TABLE `follows`
+  ADD UNIQUE KEY `followerID_2` (`followerID`,`followedID`),
   ADD KEY `followedID` (`followedID`),
   ADD KEY `followerID` (`followerID`);
 
@@ -159,6 +209,7 @@ ALTER TABLE `follows`
 -- Indexes for table `likes`
 --
 ALTER TABLE `likes`
+  ADD UNIQUE KEY `userID_2` (`userID`,`postID`),
   ADD KEY `postID` (`postID`),
   ADD KEY `userID` (`userID`);
 
@@ -191,13 +242,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postID` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `postID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `userID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
