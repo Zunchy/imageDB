@@ -1,0 +1,152 @@
+<?php
+
+//Variables for server connection
+$servername = "localhost:3306"; 
+$username = "root";
+$password = "";
+$dbname = "imagedb";
+
+function user_follower_count(int $userID)
+{
+    global $servername, $username, $password, $dbname;
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(! $conn )
+        die('Could not connect: ' . mysqli_error($conn));
+    $sql = "select user_follower_count($userID);";
+    $retval = mysqli_query($conn, $sql);
+    $conn->close();   
+    return $retval;
+
+}
+
+function user_following_count(int $userID)
+{
+    global $servername, $username, $password, $dbname;
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(! $conn )
+        die('Could not connect: ' . mysqli_error($conn));
+    $sql = "select user_following_count($userID);";
+    $retval = mysqli_query($conn, $sql);
+    $conn->close();
+    return $retval;
+
+}
+
+function post_like_count(int $postID)
+{
+    global $servername, $username, $password, $dbname;
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(! $conn )
+        die('Could not connect: ' . mysqli_error($conn));
+    $sql = "select post_like_count($postID);";
+    $retval = mysqli_query($conn, $sql); 
+    $conn->close();   
+    return $retval;
+}
+
+function post_comments(int $postID)
+{
+    global $servername, $username, $password, $dbname;
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(! $conn )
+        die('Could not connect: ' . mysqli_error($conn));
+
+    $sql = "call post_comments($postID)";
+    $retval = mysqli_query($conn, $sql);
+
+    if($retval->num_rows > 0)
+    {
+        while($record = $retval->fetch_assoc())
+        $rows[] = $record;
+    }
+    $conn->close();
+    return $rows;
+     
+}
+
+function post_likes(int $postID)
+{
+    global $servername, $username, $password, $dbname;
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(! $conn )
+        die('Could not connect: ' . mysqli_error($conn));
+
+    $sql = "call post_likes($postID)";
+    $retval = mysqli_query($conn, $sql);
+
+    if($retval->num_rows > 0)
+    {
+        while($record = $retval->fetch_assoc())
+        $rows[] = $record;
+    }
+    $conn->close();
+    return $rows;
+     
+}
+
+function user_followers(int $userID)
+{
+    global $servername, $username, $password, $dbname;
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(! $conn )
+        die('Could not connect: ' . mysqli_error($conn));
+
+    $sql = "call user_followers($userID)";
+    $retval = mysqli_query($conn, $sql);
+
+    if($retval->num_rows > 0)
+    {
+        while($record = $retval->fetch_assoc())
+        $rows[] = $record;
+    }
+    $conn->close();
+    return $rows;
+     
+}
+
+function user_following(int $userID)
+{
+    global $servername, $username, $password, $dbname;
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(! $conn )
+        die('Could not connect: ' . mysqli_error($conn));
+
+    $sql = "call user_following($userID)";
+    $retval = mysqli_query($conn, $sql);
+
+    if($retval->num_rows > 0)
+    {
+        while($record = $retval->fetch_assoc())
+        $rows[] = $record;
+    }
+    $conn->close();
+    return $rows;
+     
+}
+
+    //Usage if works example for comments?
+    /*
+    $comments = post_comments(postID);
+    if($comments->isset())
+    {
+        foreach($comments as $comment)
+        {
+            echo $comment['userID'], "|", $comment['dateTime'], "|", $comment['text'] ;
+        }
+    }
+    */
+?>

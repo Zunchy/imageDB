@@ -1,0 +1,19 @@
+body{
+  background-color: lightblue;
+}
+
+.headerText{
+  size: 20pt;
+  border-bottom: 5px solid black;
+}
+
+.formContainer {
+  width: 300px;
+  clear: both;
+}
+
+.formContainer input {
+  width: 100%;
+  clear: both;
+  text-align: center;
+}
