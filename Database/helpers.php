@@ -91,9 +91,68 @@ function username_posts(string $user)
     return $rows; 
 }
 
+function add_post_with_tag(int $userid, string $file_location, string $tag_name)
+{
+    global $servername, $username, $password, $dbname;
 
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
+    if(! $conn )
+        die('Could not connect: ' . mysqli_error($conn));
+    $datetime = date("Y-m-d H:i:s");
+    $sql = "INSERT INTO `posts` (`postID`, `userID`, `dateTime`, `file_location`, `view_count`, `tag_name`) 
+    VALUES (NULL, '$userid', '$datetime', '$file_location', '0', '$tag_name')";
 
+    $success = mysqli_query($conn, $sql);
+
+    if (!$success) {
+        trigger_error('Invalid query: ' . $conn->error);
+    }
+
+    $conn->close();
+}
+
+function add_post_no_tag(int $userid, string $file_location)
+{
+    global $servername, $username, $password, $dbname;
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(! $conn )
+        die('Could not connect: ' . mysqli_error($conn));
+    $datetime = date("Y-m-d H:i:s");
+    $sql = "INSERT INTO `posts` (`postID`, `userID`, `dateTime`, `file_location`, `view_count`, `tag_name`) 
+    VALUES (NULL, '$userid', '$datetime', '$file_location', '0', NULL)";
+
+    $success = mysqli_query($conn, $sql);
+
+    if (!$success) {
+        trigger_error('Invalid query: ' . $conn->error);
+    }
+
+    $conn->close();
+}
+
+function add_comment(int $userid, int $postid, string $text)
+{
+    global $servername, $username, $password, $dbname;
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(! $conn )
+        die('Could not connect: ' . mysqli_error($conn));
+    $datetime = date("Y-m-d H:i:s");
+    $sql = "INSERT INTO `comments` (`userID`, `postID`, `dateTime`, `text`) 
+    VALUES ('$userid', '$postid', '$datetime', '$text')";
+
+    $success = mysqli_query($conn, $sql);
+
+    if (!$success) {
+        trigger_error('Invalid query: ' . $conn->error);
+    }
+
+    $conn->close();
+}
 
 
 ?>
