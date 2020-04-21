@@ -1,7 +1,9 @@
 <html>
 
 <head>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    <?php include 'style.css'; ?>
+  </style>
   <script type="text/javascript">
     function validateUser() {
         var user=document.getElementById("user").value;
@@ -9,7 +11,7 @@
         var confirmPass=document.getElementById("confirmPass").value;
 
        if (user.length == 0) {
-  			 alert("A username must be provided");
+     alert("A username must be provided");
                return false
        }
        if (pass.length < 8) {
@@ -28,11 +30,11 @@
 <body>
 
 <center><h1 class="headerText">Create a new Account</h1> <br />
-<div class="formContainer">
+<div class="newContainer">
 <form class="infoForm" action="verifySignup.php" onsubmit="return validateUser()" method=post>
-    Username: <input type="text" id="user" name="user" size="20"></br>
+    Username: <input type="text" id="user" name="user" size="20"><br />
     Password: <input type="password" id="pass" name="pass" size="20"><br />
-    Reenter Password: <input type="password" id="confirmPass" size="20"> </br>
+    Reenter Password: <input type="password" id="confirmPass" size="20"> <br />
     <Input type="submit" value="Submit">
 </form>
 
