@@ -1,7 +1,9 @@
 <html>
 
 <head>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+  <?php include 'style.css'; ?>
+  </style>
 </head>
 
 <body>
@@ -10,8 +12,8 @@
 
 <div class="formContainer">
 <form class="infoForm" action="" onsubmit="" method=post>
-    Username: <input type="text" id="user" name="user" size="20"><br />
-    Password: <input type="password" id="pass" size="20"><br />
+    <input type="text" id="user" name="user" size="20" placeholder="Username"><br />
+    <input type="password" id="pass" size="20" placeholder="Password"><br />
     <Input type="submit" value="Submit">
 </form>
 </div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2> <b>Comments Test</b> </h2>
+
+<div>
+<h4> <b>Comments</b> </h4>
+<?php 
+include 'Database/routines.php';
+
+$comments = post_comments(1);
+if(!($comments == null) )
+    foreach($comments as $comment)
+    {
+        echo "<p>", $comment['userName'], " | ",
+         $comment['dateTime'], " | ", $comment['text'], "</p>";
+    }
+?>
+</div>
+
+<div>
+<h2> <b>Tag Test</b> </h2>
+
+
+<h4> <b>Spooky Posts</b> </h4>
+<?php 
+include 'Database/helpers.php';
+
+$posts = tag_posts("spooky");
+if(!($posts == null) )
+    foreach($posts as $post)
+    {
+        echo "<p>", $post['postID'], " | ",
+         $post['dateTime'], " | ", $post['file_location'], "</p>";
+    }
+?>
+
+</div>
+
+<div>
+<h2> <b>User Post Test</b> </h2>
+
+
+<h4> <b>kyle1413 Posts</b> </h4>
+<?php 
+$posts = username_posts("kyle1413");
+if(!($posts == null) )
+    foreach($posts as $post)
+    {
+        echo "<p>", $post['postID'], " | ",
+         $post['dateTime'], " | ", $post['file_location'], "</p>";
+    }
+?>
+
+</div>
+</body>
+</html>
