@@ -1,16 +1,11 @@
 <?php
-
-//Variables for server connection
-$servername = "localhost:3306"; 
-$username = "root";
-$password = "";
-$dbname = "imagedb";
+include "dbGlobals.php";
 
 function tag_posts(string $tag_name)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
@@ -36,9 +31,9 @@ function tag_posts(string $tag_name)
 
 function userid_posts(int $user)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
@@ -64,9 +59,9 @@ function userid_posts(int $user)
 
 function username_posts(string $user)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
@@ -93,9 +88,9 @@ function username_posts(string $user)
 
 function add_post_with_tag(int $userid, string $file_location, string $tag_name)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
@@ -114,9 +109,9 @@ function add_post_with_tag(int $userid, string $file_location, string $tag_name)
 
 function add_post_no_tag(int $userid, string $file_location)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
@@ -135,9 +130,9 @@ function add_post_no_tag(int $userid, string $file_location)
 
 function add_comment(int $userid, int $postid, string $text)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
