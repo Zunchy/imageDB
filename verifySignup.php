@@ -1,16 +1,14 @@
 <?php
-//Variables for server connection
-$servername = "localhost:3306";  // if you run on local server the name is "localhost:3306". If you run on cs server, use only "localhost"
-$username = "root";
-$password = "";
-$dbname = "imagedb";
+include "Database/dbGlobals.php";
 
 //Variables for user Account Creation
 $user = $_POST['user'];
 $userPass = $_POST['pass'];
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+global $dbservername, $dbusername, $dbpassword, $dbname;
+
+$conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
 if(! $conn )
     die('Could not connect: ' . mysqli_error($conn));

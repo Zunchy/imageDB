@@ -1,16 +1,12 @@
 <?php
 
-//Variables for server connection
-$servername = "localhost:3306"; 
-$username = "root";
-$password = "";
-$dbname = "imagedb";
+include "dbGlobals.php";
 
 function user_follower_count(int $userID)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
@@ -26,9 +22,9 @@ function user_follower_count(int $userID)
 
 function user_following_count(int $userID)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
@@ -44,9 +40,9 @@ function user_following_count(int $userID)
 
 function post_like_count(int $postID)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
@@ -61,9 +57,9 @@ function post_like_count(int $postID)
 
 function post_comments(int $postID)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
@@ -89,9 +85,9 @@ function post_comments(int $postID)
 
 function post_likes(int $postID)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
@@ -117,9 +113,9 @@ function post_likes(int $postID)
 
 function user_followers(int $userID)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
@@ -145,10 +141,9 @@ function user_followers(int $userID)
 
 function user_following(int $userID)
 {
-    global $servername, $username, $password, $dbname;
+    global $dbservername, $dbusername, $dbpassword, $dbname;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
 
