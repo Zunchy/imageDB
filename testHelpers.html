@@ -29,11 +29,11 @@ include 'Database/helpers.php';
 
 $posts = tag_posts("spooky");
 if(!($posts == null) )
-    foreach($posts as $post)
-    {
-        echo "<p>", $post['postID'], " | ",
-         $post['dateTime'], " | ", $post['file_location'], "</p>";
-    }
+foreach($posts as $post)
+{
+    echo "<div id=\"post\">", "<img src=\"", $post["file_location"], "\" height =\"50\" width=\"50\"></img>", "<p>", $post['postID'], " | ",
+     $post['dateTime'], "</p>", "</div>";
+}
 ?>
 
 </div>
@@ -54,8 +54,8 @@ $posts = username_posts("kyle1413");
 if(!($posts == null) )
     foreach($posts as $post)
     {
-        echo "<p>", $post['postID'], " | ",
-         $post['dateTime'], " | ", $post['file_location'], "</p>";
+        echo "<div id=\"post\">", "<img src=\"", $post["file_location"], "\" height =\"50\" width=\"50\"></img>", "<p>", $post['postID'], " | ",
+         $post['dateTime'], "</p>", "</div>";
     }
 ?>
 
