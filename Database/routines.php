@@ -2,7 +2,7 @@
 
 include "dbGlobals.php";
 
-function user_follower_count(int $userID)
+function user_follower_count(string $user)
 {
     global $dbservername, $dbusername, $dbpassword, $dbname;
 
@@ -10,17 +10,18 @@ function user_follower_count(int $userID)
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
-    $sql = "select user_follower_count($userID);";
-    $retval = mysqli_query($conn, $sql);
-    if (!$retval) {
+    $sql = $conn->prepare("select user_follower_count((select userid from users where userName = ? limit 1))");
+    $sql->bind_param("s", $user);
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
+    $retval = $sql->get_result();
     $conn->close();   
     return $retval;
 
 }
 
-function user_following_count(int $userID)
+function user_following_count(string $user)
 {
     global $dbservername, $dbusername, $dbpassword, $dbname;
 
@@ -28,11 +29,12 @@ function user_following_count(int $userID)
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
-    $sql = "select user_following_count($userID);";
-    $retval = mysqli_query($conn, $sql);
-    if (!$retval) {
+    $sql = $conn->prepare("select user_following_count((select userid from users where userName = ? limit 1))");
+    $sql->bind_param("s", $user);
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
+    $retval = $sql->get_result();
     $conn->close();
     return $retval;
 
@@ -46,11 +48,12 @@ function post_like_count(int $postID)
 
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
-    $sql = "select post_like_count($postID);";
-    $retval = mysqli_query($conn, $sql); 
-    if (!$retval) {
+    $sql = $conn->prepare("select post_like_count(?);");
+    $sql->bind_param("i", $postID);
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
+    $retval = $sql->get_result();
     $conn->close();   
     return $retval;
 }
@@ -64,11 +67,13 @@ function post_comments(int $postID)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
 
-    $sql = "call post_comments($postID)";
-    $retval = mysqli_query($conn, $sql);
-    if (!$retval) {
+    $sql = $conn->prepare("call post_comments(?)");
+    $sql->bind_param("i", $postID);
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
+    $retval = $sql->get_result();
+
     if($retval->num_rows > 0)
     {
         while($record = $retval->fetch_assoc())
@@ -92,11 +97,13 @@ function post_likes(int $postID)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
 
-    $sql = "call post_likes($postID)";
-    $retval = mysqli_query($conn, $sql);
-    if (!$retval) {
+    $sql = $conn->prepare("call post_likes(?)");
+    $sql->bind_param("i", $postID);
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
+    $retval = $sql->get_result();
+
     if($retval->num_rows > 0)
     {
         while($record = $retval->fetch_assoc())
@@ -111,7 +118,7 @@ function post_likes(int $postID)
      
 }
 
-function user_followers(int $userID)
+function user_followers(string $user)
 {
     global $dbservername, $dbusername, $dbpassword, $dbname;
 
@@ -120,11 +127,13 @@ function user_followers(int $userID)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
 
-    $sql = "call user_followers($userID)";
-    $retval = mysqli_query($conn, $sql);
-    if (!$retval) {
+    $sql = $conn->prepare("call user_followers((select userid from users where userName = ? limit 1))");
+    $sql->bind_param("s", $user);
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
+    $retval = $sql->get_result();
+
     if($retval->num_rows > 0)
     {
         while($record = $retval->fetch_assoc())
@@ -139,7 +148,7 @@ function user_followers(int $userID)
      
 }
 
-function user_following(int $userID)
+function user_following(string $user)
 {
     global $dbservername, $dbusername, $dbpassword, $dbname;
 
@@ -147,11 +156,13 @@ function user_following(int $userID)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
 
-    $sql = "call user_following($userID)";
-    $retval = mysqli_query($conn, $sql);
-    if (!$retval) {
+    $sql = $conn->prepare("call user_following((select userid from users where userName = ? limit 1))");
+    $sql->bind_param("s", $user);
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
+    $retval = $sql->get_result();
+
     if($retval->num_rows > 0)
     {
         while($record = $retval->fetch_assoc())

@@ -13,8 +13,14 @@ $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 if(! $conn )
     die('Could not connect: ' . mysqli_error($conn));
 else
-    $sql = "SELECT COUNT(*) FROM users WHERE userName = '$user'";
-    $retval = mysqli_query($conn, $sql);
+    $sql = $conn->prepare("SELECT COUNT(*) FROM users WHERE userName = ?");
+    $sql->bind_param("s", $user);
+    
+    if (!$sql->execute()) {
+      trigger_error('Invalid query: ' . $conn->error);
+    }
+
+    $retval = $sql->get_result();
     $duplicateUser = mysqli_fetch_assoc($retval);
 
     if($duplicateUser['COUNT(*)'] > 0){
@@ -23,15 +29,13 @@ else
       exit;
     }
     else{
-      $sql = "INSERT INTO users ".
+      $sql = $conn->prepare("INSERT INTO users ".
                "(userID,userName, password) "."VALUES ".
-               "('DEFAULT','$user','$userPass')";
-
-      $retval = mysqli_query($conn, $sql);
-
-      if(! $retval ) {
+               "('DEFAULT', ? ,? )");
+      $sql->bind_param("ss", $user, $userPass);
+      if (!$sql->execute()) {
         die('Could not create user: ' . mysqli_error($conn));
-      }
+        }
 
       header('Location: login.php');
     }
