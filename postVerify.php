@@ -3,17 +3,21 @@ include "Database/dbGlobals.php";
 include "Database/helpers.php";
 
 $Tag = $_POST['tag'];
-//$Image = $_POST['img'];
-$ImageData = $_FILES['img']
-$Image= $_FILES['img']['name']
+global $userid;
+$ImageName = $_FILES['img']['name'];
+$ImageTMP = $_FILES['img']['tmp_name'];
 
-if ($tag)
+$random = rand(1, 999);
+
+if ($Tag)
 {
-add_post_with_tag($userid, $Image, $Tag)
+add_post_with_tag($userid, $ImageTMP, $Tag);
 }
 
 else
 {
-add_post_no_tag($userid, string $file_location)
+add_post_no_tag($userid, $ImageTMP);
 }
+
+move_uploadedfile($ImageTMP, "images/$img.$random");
 ?>
