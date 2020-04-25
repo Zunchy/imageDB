@@ -13,8 +13,7 @@
 <center><h1 class="headerText">Make a post</h1> <br />
 <div class="newContainer">
 <form action="postVerify.php" method=post >
-    Title: <input type="text" id="title" name="title"> <br />
-    Text: <input type="text" id="tweet" name="tweet"> <br />
+    Tag: <input type="text" id="tag" name="tag"> <br />
     <label for="img">Select image:</label>
     <input type="file" id="img" name="img" accept="image/*"> <br/>
 
