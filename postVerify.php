@@ -1,34 +1,19 @@
 <?php
 include "Database/dbGlobals.php";
+include "Database/helpers.php";
 
-$Tag = $_post['tag']
-$Image = $_post['img']
+$Tag = $_POST['tag'];
+//$Image = $_POST['img'];
+$ImageData = $_FILES['img']
+$Image= $_FILES['img']['name']
 
-global $dbservername, $dbusername, $dbpassword, $dbname;
-$conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
-
-if(! $conn )
+if ($tag)
 {
-    die('Could not connect: ' . mysqli_error($conn));
+add_post_with_tag($userid, $Image, $Tag)
 }
 
-$insert = "insert into posts (postID, userID, dateTime, file_location, view_count, tag_name)
-values ($postID, $userID, $dateTime, $Image, 0, $Tag)"
-
-$run = mysqli_query($con, $insert);
-if ($run)
+else
 {
-  echo "<script>alert('Posted')</script>";
+add_post_no_tag($userid, string $file_location)
 }
-/*
-$sql = $conn->prepare("INSERT INTO posts (postID, userID, dateTime, file_location, view_count, tag_name) VALUES (?, ?, ?, ?, ?, ?)");
-$sql->bind_param("sss", $postID, $userID, $dateTime, $file_location, $view_count, $tag_name);
-
-$postID =
-$userID =
-$dateTime =
-$file_location =
-$view_count =
-$tag_name =
-*/
 ?>

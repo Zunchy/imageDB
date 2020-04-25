@@ -14,6 +14,7 @@
 <div class="newContainer">
 <form action="postVerify.php" method=post >
     Tag: <input type="text" id="tag" name="tag"> <br />
+
     <label for="img">Select image:</label>
     <input type="file" id="img" name="img" accept="image/*"> <br/>
 
