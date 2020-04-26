@@ -5,7 +5,7 @@ include "Database/helpers.php";
 // Needs later include account verification
 
 $Tag = $_POST['tag'];
-global $userid;
+
 $ImageName = $_FILES['img']['name'];
 $ImageTMP = $_FILES['img']['tmp_name'];
 
