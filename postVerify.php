@@ -9,15 +9,16 @@ $ImageTMP = $_FILES['img']['tmp_name'];
 
 $random = rand(1, 999);
 
-if ($Tag)
+$trialuser = 3;
+if ($Tag == true)
 {
-add_post_with_tag($userid, $ImageTMP, $Tag);
+add_post_with_tag($trialuser, $ImageTMP, $Tag);
 }
 
 else
 {
-add_post_no_tag($userid, $ImageTMP);
+add_post_no_tag($trialuser, $ImageTMP);
 }
 
-move_uploadedfile($ImageTMP, "images/$img.$random");
+move_uploaded_file($ImageTMP, "images/$random.$ImageName");
 ?>

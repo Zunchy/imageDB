@@ -12,7 +12,7 @@ function tag_posts(string $tag_name)
 
     $sql = $conn->prepare("select * from posts where tag_name = ?");
     $sql->bind_param("s", $tag_name);
-    
+
     if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
@@ -28,7 +28,7 @@ function tag_posts(string $tag_name)
     }
     $conn->close();
     return $rows;
-     
+
 }
 
 function userid_posts(int $user)
@@ -59,7 +59,7 @@ function userid_posts(int $user)
     }
     $conn->close();
     return $rows;
-     
+
 }
 
 function username_posts(string $user)
@@ -88,7 +88,7 @@ function username_posts(string $user)
         $rows = null;
     }
     $conn->close();
-    return $rows; 
+    return $rows;
 }
 
 function add_post_with_tag(int $userid, string $file_location, string $tag_name)
@@ -100,11 +100,11 @@ function add_post_with_tag(int $userid, string $file_location, string $tag_name)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
     $datetime = date("Y-m-d H:i:s");
-    $sql = $conn->prepare("INSERT INTO `posts` (`postID`, `userID`, `dateTime`, `file_location`, `view_count`, `tag_name`) 
+    $sql = $conn->prepare("INSERT INTO `posts` (`postID`, `userID`, `dateTime`, `file_location`, `view_count`, `tag_name`)
     VALUES (NULL, ?, ?, ?, '0', ?)");
     $sql->bind_param("isss", $userid, $datetime, $file_location, $tag_name);
     if (!$sql->execute()) {
-        trigger_error('Invalid query: ' . $conn->error);
+       trigger_error('Invalid query: ' . $conn->error);
     }
     $conn->close();
 }
@@ -118,7 +118,7 @@ function add_post_no_tag(int $userid, string $file_location)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
     $datetime = date("Y-m-d H:i:s");
-    $sql = $conn->prepare("INSERT INTO `posts` (`postID`, `userID`, `dateTime`, `file_location`, `view_count`, `tag_name`) 
+    $sql = $conn->prepare("INSERT INTO `posts` (`postID`, `userID`, `dateTime`, `file_location`, `view_count`, `tag_name`)
     VALUES (NULL, ?, ?, ?, '0', NULL)");
         $sql->bind_param("iss", $userid, $datetime, $file_location);
 
@@ -138,7 +138,7 @@ function add_comment(int $userid, int $postid, string $text)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
     $datetime = date("Y-m-d H:i:s");
-    $sql = $conn->prepare("INSERT INTO `comments` (`userID`, `postID`, `dateTime`, `text`) 
+    $sql = $conn->prepare("INSERT INTO `comments` (`userID`, `postID`, `dateTime`, `text`)
     VALUES (?, ?, ?, ?)");
         $sql->bind_param("iiss", $userid, $postid, $datetime, $text);
 
