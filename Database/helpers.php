@@ -150,4 +150,33 @@ function add_comment(int $userid, int $postid, string $text)
 }
 
 
+function tag_list()
+{
+    global $dbservername, $dbusername, $dbpassword, $dbname;
+
+    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
+
+    if(! $conn )
+        die('Could not connect: ' . mysqli_error($conn));
+
+    $sql = $conn->prepare("select tags.tag_name, description, Count(distinct tags.tag_name) as post_count from posts natural join tags group by tag_name order by post_count desc");
+
+    if (!$sql->execute()) {
+        trigger_error('Invalid query: ' . $conn->error);
+    }
+    //"tag_name" "description" "post_count"
+    $retval = $sql->get_result();
+    if($retval->num_rows > 0)
+    {
+        while($record = $retval->fetch_assoc())
+        $rows[] = $record;
+    }
+    else
+    {
+        $rows = null;
+    }
+    $conn->close();
+    return $rows; 
+}
+
 ?>
