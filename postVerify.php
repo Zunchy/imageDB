@@ -21,4 +21,5 @@ add_post_no_tag($trialuser, $ImageTMP);
 }
 
 move_uploaded_file($ImageTMP, "images/$random.$ImageName");
+header("Location: home.php");
 ?>
