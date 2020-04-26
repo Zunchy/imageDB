@@ -12,5 +12,5 @@ $postid = 2;
 
 
 add_comment($trialuser, $postid, $comment)
-
+header("Location: home.php");
 ?>
