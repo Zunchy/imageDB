@@ -38,15 +38,20 @@
 
   	  if($followsCount->fetch_array(MYSQLI_NUM) > 0){
   	  	foreach ($follows as $key => $value) {
-  	  		$posts = username_posts($value["userName"]);
-  	  		foreach ($posts as $pkey => $pvalue) {
-  	  			//show the postername
-  	  			echo '<center><div class="post"><p class="poster">' .$value["userName"] .'</p>';
-  	  			//show the image
-  	  			echo '<img src="' .$pvalue["file_location"] .'" ></div></center>';
-  	  			//add comments here
-  	  			//add tags here?
-  	  		}
+				$posts = username_posts($value["userName"]);
+				
+				if($posts != null) 
+				{
+					foreach ($posts as $pkey => $pvalue) {
+						//show the postername
+						echo '<center><div class="post"><p class="poster">' .$value["userName"] .'</p>';
+						//show the image
+						echo '<img src="' .$pvalue["file_location"] .'" ></div></center>';
+						//add comments here
+						//add tags here?
+					}
+				}
+
   	  	}
 
   	  }else{
