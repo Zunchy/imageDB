@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2020 at 07:33 PM
+-- Generation Time: Apr 23, 2020 at 06:32 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -27,19 +27,19 @@ DELIMITER $$
 -- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `post_comments` (IN `post` INT(6))  begin
-	SELECT users.userName, comments.dateTime, comments.text from comments natural join users where comments.postID = post;
+	SELECT userName, dateTime, text from comments natural join users where comments.postID = post;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `post_likes` (IN `post` INT(6))  begin
-	SELECT users.userName from likes natural join users where postID = post;
+	SELECT userName from likes natural join users where postID = post;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `user_followers` (`user_id` INT(6))  begin
-	SELECT users.userName from (SELECT users.userName, follows.followerID from users join follows on users.userID = follows.followerID where user_id = follows.followedID) as followingUsers;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_followers` (IN `user_id` INT(6))  begin
+	SELECT userName from (SELECT users.userName, follows.followerID from users join follows on users.userID = follows.followerID where user_id = follows.followedID) as followingUsers;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `user_following` (`user_id` INT(6))  begin
-	SELECT users.userName from (SELECT users.userName, follows.followedID from users join follows on users.userID = follows.followedID where user_id = follows.followerID) as followedUsers;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_following` (IN `user_id` INT(6))  begin
+	SELECT userName from (SELECT users.userName, follows.followedID from users join follows on users.userID = follows.followedID where user_id = follows.followerID) as followedUsers;
 end$$
 
 --
@@ -184,7 +184,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `userName`, `password`) VALUES
 (2, 'kyle1413', '12341234'),
-(3, 'tim1234', '34563456');
+(3, 'tim1234', '34563456'),
+(4, 'kyle1414', '12341234');
 
 --
 -- Indexes for dumped tables
@@ -248,7 +249,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `userID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

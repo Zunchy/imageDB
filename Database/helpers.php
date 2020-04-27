@@ -10,11 +10,13 @@ function tag_posts(string $tag_name)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
 
-    $sql = "select * from posts where tag_name = \"$tag_name\"";
-    $retval = mysqli_query($conn, $sql);
-    if (!$retval) {
+    $sql = $conn->prepare("select * from posts where tag_name = ?");
+    $sql->bind_param("s", $tag_name);
+    
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
+    $retval = $sql->get_result();
     if($retval->num_rows > 0)
     {
         while($record = $retval->fetch_assoc())
@@ -38,11 +40,14 @@ function userid_posts(int $user)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
 
-    $sql = "select * from posts where userID = $user";
-    $retval = mysqli_query($conn, $sql);
-    if (!$retval) {
+    $sql = $conn->prepare("select * from posts where userID = ?");
+    $sql->bind_param("i", $user);
+
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
+    $retval = $sql->get_result();
+
     if($retval->num_rows > 0)
     {
         while($record = $retval->fetch_assoc())
@@ -66,13 +71,13 @@ function username_posts(string $user)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
 
-    $sql = "select * from posts natural join users where userName = \"$user\"";
-    $retval = mysqli_query($conn, $sql);
+    $sql = $conn->prepare("select * from posts natural join users where userName = ?");
+    $sql->bind_param("s", $user);
 
-    if (!$retval) {
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
-
+    $retval = $sql->get_result();
     if($retval->num_rows > 0)
     {
         while($record = $retval->fetch_assoc())
@@ -95,15 +100,12 @@ function add_post_with_tag(int $userid, string $file_location, string $tag_name)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
     $datetime = date("Y-m-d H:i:s");
-    $sql = "INSERT INTO `posts` (`postID`, `userID`, `dateTime`, `file_location`, `view_count`, `tag_name`) 
-    VALUES (NULL, '$userid', '$datetime', '$file_location', '0', '$tag_name')";
-
-    $success = mysqli_query($conn, $sql);
-
-    if (!$success) {
+    $sql = $conn->prepare("INSERT INTO `posts` (`postID`, `userID`, `dateTime`, `file_location`, `view_count`, `tag_name`) 
+    VALUES (NULL, ?, ?, ?, '0', ?)");
+    $sql->bind_param("isss", $userid, $datetime, $file_location, $tag_name);
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
-
     $conn->close();
 }
 
@@ -116,12 +118,11 @@ function add_post_no_tag(int $userid, string $file_location)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
     $datetime = date("Y-m-d H:i:s");
-    $sql = "INSERT INTO `posts` (`postID`, `userID`, `dateTime`, `file_location`, `view_count`, `tag_name`) 
-    VALUES (NULL, '$userid', '$datetime', '$file_location', '0', NULL)";
+    $sql = $conn->prepare("INSERT INTO `posts` (`postID`, `userID`, `dateTime`, `file_location`, `view_count`, `tag_name`) 
+    VALUES (NULL, ?, ?, ?, '0', NULL)");
+        $sql->bind_param("iss", $userid, $datetime, $file_location);
 
-    $success = mysqli_query($conn, $sql);
-
-    if (!$success) {
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
 
@@ -137,12 +138,11 @@ function add_comment(int $userid, int $postid, string $text)
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
     $datetime = date("Y-m-d H:i:s");
-    $sql = "INSERT INTO `comments` (`userID`, `postID`, `dateTime`, `text`) 
-    VALUES ('$userid', '$postid', '$datetime', '$text')";
+    $sql = $conn->prepare("INSERT INTO `comments` (`userID`, `postID`, `dateTime`, `text`) 
+    VALUES (?, ?, ?, ?)");
+        $sql->bind_param("iiss", $userid, $postid, $datetime, $text);
 
-    $success = mysqli_query($conn, $sql);
-
-    if (!$success) {
+    if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
     }
 

@@ -97,3 +97,16 @@ a:visited {
   background: white;
   color: black;
 }
+
+.post {
+  width: 300px;
+  border: 15px solid green;
+  padding: 50px;
+  margin:20px;
+}
+
+.poster {
+  text-align:left;
+  color: white;
+}
+

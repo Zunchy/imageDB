@@ -27,19 +27,19 @@ DELIMITER $$
 -- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `post_comments` (IN `post` INT(6))  begin
-	SELECT users.userName, comments.dateTime, comments.text from comments natural join users where comments.postID = post;
+	SELECT userName, dateTime, text from comments natural join users where comments.postID = post;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `post_likes` (IN `post` INT(6))  begin
-	SELECT users.userName from likes natural join users where postID = post;
+	SELECT userName from likes natural join users where postID = post;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `user_followers` (`user_id` INT(6))  begin
-	SELECT users.userName from (SELECT users.userName, follows.followerID from users join follows on users.userID = follows.followerID where user_id = follows.followedID) as followingUsers;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_followers` (IN `user_id` INT(6))  begin
+	SELECT userName from (SELECT users.userName, follows.followerID from users join follows on users.userID = follows.followerID where user_id = follows.followedID) as followingUsers;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `user_following` (`user_id` INT(6))  begin
-	SELECT users.userName from (SELECT users.userName, follows.followedID from users join follows on users.userID = follows.followedID where user_id = follows.followerID) as followedUsers;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_following` (IN `user_id` INT(6))  begin
+	SELECT userName from (SELECT users.userName, follows.followedID from users join follows on users.userID = follows.followedID where user_id = follows.followerID) as followedUsers;
 end$$
 
 --
