@@ -23,8 +23,13 @@ else{
   $userPass = mysqli_real_escape_string($conn, $_POST['pass']);
 
   //sql statement and execution
-  $sql = "SELECT userID FROM users WHERE userName = '$user' AND password = '$userPass';";
-  $results = mysqli_query($conn, $sql);
+  $sql = $conn->prepare("SELECT userID FROM users WHERE userName = ? AND password = ?");
+  $sql->bind_param("ss", $user, $userPass);
+
+  if (!$sql->execute()) {
+    trigger_error('Invalid query: ' . $conn->error);
+}
+  $results = $sql->get_result();
 
   //compareing the sql input to user given input
   if(mysqli_num_rows($results) == 1){
