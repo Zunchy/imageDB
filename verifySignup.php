@@ -22,7 +22,7 @@ $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
 if(! $conn )
     die('Could not connect: ' . mysqli_error($conn));
-else
+else{
     $sql = "SELECT COUNT(*) FROM users WHERE userName = '$user'";
     $retval = mysqli_query($conn, $sql);
     $duplicateUser = mysqli_fetch_assoc($retval);
@@ -42,10 +42,12 @@ else
       if(! $retval ) {
         die('Could not create user: ' . mysqli_error($conn));
       }
-      mysqli_close($conn)
-     }
+      mysqli_close($conn);
+    }
+  }
 
- ?>
+
+?>
 
 
  <center><h1 class="subText">Account creation was succesful!</h1> <br />
