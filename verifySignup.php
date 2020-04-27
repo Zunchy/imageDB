@@ -1,3 +1,13 @@
+<html>
+<head>
+
+<style>
+<?php include 'style.css'; ?>
+</style>
+
+</head>
+<body>
+
 <?php
 include "Database/dbGlobals.php";
 
@@ -32,8 +42,16 @@ else
       if(! $retval ) {
         die('Could not create user: ' . mysqli_error($conn));
       }
+      mysqli_close($conn)
+     }
 
-      header('Location: login.php');
-    }
+ ?>
 
-?>
+
+ <center><h1 class="subText">Account creation was succesful!</h1> <br />
+
+ <h1 class="clickHere">Click <a href="login.php">here</a> to login.</h1> <br />
+
+ <center/>
+
+ </body>

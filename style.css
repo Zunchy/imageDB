@@ -7,6 +7,15 @@ body{
   color: white;
   border-bottom: 5px solid white;
 }
+.subText{
+  size: 10pt;
+  color: white;
+}
+
+.clickHere{
+  size: 6pt;
+  color: white;
+}
 
 .formContainer {
   width: 300px;
