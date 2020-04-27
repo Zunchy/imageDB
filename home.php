@@ -31,12 +31,11 @@
   	  echo "<center><h2>Recent Posts</h2></center>";
 
   	  $follows = user_following($user);
-  	  $followsCount = user_following_count($user);
   	  //display the 3 most recent posts by who the user follows
 
   	  //echo "<p>" .$follows ."<p>";
 
-  	  if($followsCount->fetch_array(MYSQLI_NUM) > 0){
+  	  if($follows != null) {
   	  	foreach ($follows as $key => $value) {
 				$posts = username_posts($value["userName"]);
 				
