@@ -31,22 +31,26 @@
   	  echo "<center><h2>Recent Posts</h2></center>";
 
   	  $follows = user_following($user);
-  	  $followsCount = user_following_count($user);
   	  //display the 3 most recent posts by who the user follows
 
   	  //echo "<p>" .$follows ."<p>";
 
-  	  if($followsCount->fetch_array(MYSQLI_NUM) > 0){
+  	  if($follows != null) {
   	  	foreach ($follows as $key => $value) {
-  	  		$posts = username_posts($value["userName"]);
-  	  		foreach ($posts as $pkey => $pvalue) {
-  	  			//show the postername
-  	  			echo '<center><div class="post"><p class="poster">' .$value["userName"] .'</p>';
-  	  			//show the image
-  	  			echo '<img src="' .$pvalue["file_location"] .'" ></div></center>';
-  	  			//add comments here
-  	  			//add tags here?
-  	  		}
+				$posts = username_posts($value["userName"]);
+				
+				if($posts != null) 
+				{
+					foreach ($posts as $pkey => $pvalue) {
+						//show the postername
+						echo '<center><div class="post"><p class="poster">' .$value["userName"] .'</p>';
+						//show the image
+						echo '<img src="' .$pvalue["file_location"] .'" ></div></center>';
+						//add comments here
+						//add tags here?
+					}
+				}
+
   	  	}
 
   	  }else{

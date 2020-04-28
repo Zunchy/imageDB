@@ -60,5 +60,23 @@ if(!($posts == null) )
 ?>
 
 </div>
+
+
+
+<div>
+<h2> <b>Tag List Test</b> </h2>
+
+
+<h4> <b>Tags with Posts</b> </h4>
+<?php 
+$tags = tag_list();
+if(!($tags == null) )
+    foreach($tags as $tag)
+    {
+        echo "<p><b>". $tag["tag_name"]. "</b>: ". $tag["description"]. " | <b>Post Count</b>: " . $tag["post_count"]. "</p>";
+    }
+?>
+
+</div>
 </body>
 </html>
