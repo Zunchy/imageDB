@@ -1,7 +1,7 @@
 <html>
 <head>
   <style>
-  <?php include 'style.css'; 
+  <?php include 'style.css';
   session_start();
 
   ?>
@@ -10,12 +10,12 @@
 
 <body>
     <center>
-<?php 
+<?php
 include "Database/helpers.php";
 
   if(!isset($_SESSION["loggedin"]) || ($_SESSION["loggedin"] !== true))
   {
-    
+
 
   }
 
@@ -23,7 +23,7 @@ include "Database/helpers.php";
   {
 
       $currentTag = $_GET["currentTag"];
-      echo "<h2 class='headerText'>", $currentTag, " Posts", "</h2>";
+      echo "<h1 class='headerText'>", $currentTag, " Posts", "</h1>";
       $posts = tag_posts($currentTag);
       if($posts != null)
       {
@@ -37,7 +37,7 @@ include "Database/helpers.php";
   }
   else
   {
-    echo "<h2 class='headerText'> Tags </h2>";
+    echo "<h1 class='headerText'> Tags </h1>";
       $taglist = tag_list();
     //"tag_name" "description" "post_count"
       foreach($taglist as $tag)
