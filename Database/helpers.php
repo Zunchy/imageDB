@@ -159,7 +159,7 @@ function tag_list()
     if(! $conn )
         die('Could not connect: ' . mysqli_error($conn));
 
-    $sql = $conn->prepare("select tags.tag_name, description, Count(distinct tags.tag_name) as post_count from posts natural join tags group by tag_name order by post_count desc");
+    $sql = $conn->prepare("select tags.tag_name, description, Count(distinct postID) as post_count from posts natural join tags group by tag_name order by post_count desc");
 
     if (!$sql->execute()) {
         trigger_error('Invalid query: ' . $conn->error);
