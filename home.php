@@ -1,22 +1,20 @@
 <html>
 
 <head>
-	<style>
-		<?php include 'style.css';
-		session_start();
-		if (!isset($_SESSION["loggedin"]) || ($_SESSION["loggedin"] !== true)) {
-			header("location: login.php");
-			exit;
-		}
+  <style>
+  <?php include 'style.css';
+  session_start();
+  if(!isset($_SESSION["loggedin"]) || ($_SESSION["loggedin"] !== true)){
+  	header("location: login.php");
+  	exit;
+  }
 
-		?>
-	</style>
+  ?>
+  </style>
 </head>
 
-<body>
-	<center>
-		<h1>Welcome <i><?php echo $_SESSION['user'] ?></i>!</h1>
-	</center>
+<body class="headerText">
+	<center><h1>Welcome <i><?php echo $_SESSION['user'] ?></i>!</h1></center>
 
 	<center>
 		<form action="newpost.php">
