@@ -11,6 +11,6 @@ $postid = 2;
 // User and post are both hard set for testing.
 
 
-add_comment($trialuser, $postid, $comment)
+add_comment($trialuser, $postid, $comment);
 header("Location: home.php");
 ?>

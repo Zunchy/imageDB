@@ -138,3 +138,25 @@ center input[type = "submit"]:hover {
 .headerText h1 {
   border-bottom: 5px solid white;
 }
+
+.comment input[type = "text"] {
+  width: 20%;
+  clear: both;
+  text-align: center;
+  margin: 5px auto;
+  padding: 7px 40px;
+  border-radius: 12px;
+  border: 0;
+  transition: 0.25s;
+}
+
+.tagPost input[type = "text"] {
+  width: 15%;
+  clear: both;
+  text-align: center;
+  margin: 5px auto;
+  padding: 7px 40px;
+  border-radius: 12px;
+  border: 0;
+  transition: 0.25s;
+}
