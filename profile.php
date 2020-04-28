@@ -12,7 +12,7 @@
   </style>
 </head>
 
-<body>
+<body class="headerText">
 	<center><h1><i><?php echo $_SESSION['user'] ?>'s Profile</i>!</h1></center>
 
 	<center>

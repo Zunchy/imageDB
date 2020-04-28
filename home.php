@@ -1,7 +1,7 @@
 <html>
 <head>
   <style>
-  <?php include 'style.css'; 
+  <?php include 'style.css';
   session_start();
   if(!isset($_SESSION["loggedin"]) || ($_SESSION["loggedin"] !== true)){
   	header("location: login.php");
@@ -12,7 +12,7 @@
   </style>
 </head>
 
-<body>
+<body class="headerText">
 	<center><h1>Welcome <i><?php echo $_SESSION['user'] ?></i>!</h1></center>
 
 	<center>
@@ -38,8 +38,8 @@
   	  if($follows != null) {
   	  	foreach ($follows as $key => $value) {
 				$posts = username_posts($value["userName"]);
-				
-				if($posts != null) 
+
+				if($posts != null)
 				{
 					foreach ($posts as $pkey => $pvalue) {
 						//show the postername
