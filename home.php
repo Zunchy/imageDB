@@ -75,8 +75,13 @@
 			//add tags here?
 		}
 	}
-
 	?>
+
+  <center>
+    <form action="delete.php">
+      <input type="submit" value="Delete your account">
+    </form>
+  </center>
 
 </body>
 
