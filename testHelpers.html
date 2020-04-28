@@ -6,7 +6,7 @@
 
 <div>
 <h4> <b>Comments</b> </h4>
-<?php 
+<?php
 include 'Database/routines.php';
 
 $comments = post_comments(1);
@@ -24,7 +24,7 @@ if(!($comments == null) )
 
 
 <h4> <b>Spooky Posts</b> </h4>
-<?php 
+<?php
 include 'Database/helpers.php';
 
 $posts = tag_posts("spooky");
@@ -43,7 +43,7 @@ foreach($posts as $post)
 
 
 <h4> <b>kyle1413 Posts</b> </h4>
-<?php 
+<?php
 
 
 // add_post_with_tag(2, "images/goose.png", "wildlife");
@@ -68,7 +68,7 @@ if(!($posts == null) )
 
 
 <h4> <b>Tags with Posts</b> </h4>
-<?php 
+<?php
 $tags = tag_list();
 if(!($tags == null) )
     foreach($tags as $tag)

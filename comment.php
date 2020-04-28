@@ -14,7 +14,7 @@
 
 <form action="commentVerify.php" method=post>
 
-    Comment: <input type="text" id="comment" name="comment"> <br />
+  <div class="comment">  Comment: <input type="text" id="comment" name="comment"> <br /> <br /> </div>
 
     <Input type="submit" value="Submit">
 

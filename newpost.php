@@ -14,10 +14,10 @@
 
 <form action="postVerify.php" method=post enctype="multipart/form-data">
 
-    Tag: <input type="text" id="tag" name="tag"> <br />
+    <div class="tagPost">Tag: <input type="text" id="tag" name="tag"> <br /><br /></div>
 
     <label for="img">Select image:</label>
-    <input type="file" id="img" name="img"> <br/>
+    <input type="file" id="img" name="img"> <br /><br />
 
     <Input type="submit" value="Post">
 
